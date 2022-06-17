@@ -3,6 +3,7 @@
 namespace WABVAP;
 
 use WP_REST_Server;
+use WP_REST_Request;
 use WABVAP\Settings;
 
 class Endpoints
@@ -29,7 +30,7 @@ class Endpoints
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array($this, 'get_data'),
-				// 'permission_callback' => array($this, 'permissions_check'),
+				'permission_callback' => array($this, 'permissions_check'),
 			),
 		));
 		register_rest_route($namespace, '/setting/(?P<name>[\d]+)', array(
@@ -42,7 +43,7 @@ class Endpoints
 		register_rest_route($namespace, '/settings', array(
 			array(
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array($this, 'get_items'),
+				'callback'            => array($this, 'get_settings'),
 				'permission_callback' => array($this, 'permissions_check'),
 			),
 		));
@@ -51,12 +52,31 @@ class Endpoints
 
 	public function permissions_check()
 	{
-		// return current_user_can('manage_options');
+		return current_user_can('manage_options');
 	}
 
-	public function get_data()
+	public function get_data(WP_REST_Request $request)
 	{
-		return wp_get_current_user();
-		// (new Settings())->get();
+		$is_refresh = $request->get_params('refresh');
+
+		$transient_key = WABVAP_OPTION_NAME . '_data';
+		$data = get_transient($transient_key);
+
+		if ((false === $data) || $is_refresh) {
+			$response = wp_remote_get(WABVAP_DATA_URL);
+
+			if ($response['response']['code'] == 200) {
+				$data = $response['body'];
+				set_transient($transient_key, $data, HOUR_IN_SECONDS);
+			}
+		}
+
+		return $data;
+	}
+
+
+	public function get_settings()
+	{
+		return (new Settings())->get();
 	}
 }

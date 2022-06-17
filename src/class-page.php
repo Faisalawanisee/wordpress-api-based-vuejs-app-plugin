@@ -2,6 +2,7 @@
 
 namespace WABVAP;
 
+
 class Page
 {
 
@@ -13,6 +14,7 @@ class Page
 	public function wp_hooks()
 	{
 		add_action('admin_menu', [$this, 'admin_menu']);
+		add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
 	}
 
 	public function admin_menu()
@@ -31,7 +33,7 @@ class Page
 
 	public function html()
 	{
-		echo '<div class="wrap" id="WABVAP-PAGE">a</div>';
+		echo '<div class="wrap" id="WABVAP-PAGE"></div>';
 	}
 
 	public function enqueue_styles()
@@ -40,5 +42,28 @@ class Page
 
 	public function enqueue_scripts()
 	{
+
+		wp_enqueue_script(
+			'wabvap_script',
+			WABVAP_URL . '/vue-source/dist/bundle.js',
+			array(),
+			WABVAP_DEV_MODE ? time() : WABVAP_VER,
+			true
+		);
+
+		// wp_enqueue_script('wp-mail-smtp-vue-script', WABVAP_URL . '/vue/js/wizard.min.js', ['wp-mail-smtp-vue-vendors'], WABVAP_VER, true);
+
+		wp_localize_script(
+			'wabvap_script',
+			'wabvap_vue',
+			[
+				// 'ajax_url' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('wp_rest'),
+				'endpoints' => [
+					'data_url' => home_url('wp-json/wabvap/data'),
+					'setting_url' => home_url('wp-json/wabvap/settings'),
+				]
+			]
+		);
 	}
 }

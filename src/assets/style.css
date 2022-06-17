@@ -13,6 +13,7 @@
   margin-right: 30px;
   padding: 20px 0 18px 0;
   text-decoration: none;
+  text-align: center;
 }
 #WABVAP-PAGE nav a.router-link-active {
   border-bottom: 2px solid #ff982d;

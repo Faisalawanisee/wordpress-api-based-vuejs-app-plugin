@@ -17,7 +17,7 @@
       <br />
 
       <label for="numrows">Emails </label>
-      <div class="border" v-for="email, i in settings.emails" :key="i" >
+      <div class="emails-list border" v-for="email, i in settings.emails" :key="i" >
         <input v-model="settings.emails[i]" placeholder="Email">
         <input type="button" value="X" @click="deleteEmail(email)">
       </div>

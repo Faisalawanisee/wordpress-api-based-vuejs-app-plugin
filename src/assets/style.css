@@ -1,0 +1,64 @@
+#WABVAP-PAGE header {
+  height: 58px;
+  background-color: #fff;
+  font-size: 14px;
+  margin: 0 -20px 20px -20px;
+  padding: 0 20px;
+}
+#WABVAP-PAGE nav a {
+  border-bottom: 2px solid #fff;
+  box-shadow: none;
+  color: #666;
+  display: inline-block;
+  margin-right: 30px;
+  padding: 20px 0 18px 0;
+  text-decoration: none;
+}
+#WABVAP-PAGE nav a.router-link-active {
+  border-bottom: 2px solid #ff982d;
+}
+#WABVAP-PAGE nav a:hover {
+  border-color: #999;
+}
+
+#WABVAP-PAGE header + div h1 {
+  color: #444;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  border-bottom: 1px solid #e4e4e4;
+  padding-bottom: 20px;
+}
+#WABVAP-PAGE .vue-apexcharts {
+  background-color: #fff;
+  padding: 25px 20px;
+  border: 1px solid #dadada;
+  margin: 10px 0 0 0;
+  position: relative;
+}
+
+#WABVAP-PAGE .button.button-primary {
+  background-color: #ff982d;
+  border-color: #ff982d;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 35px;
+  margin: 26px 0;
+}
+#WABVAP-PAGE .button.button-primary:hover,
+#WABVAP-PAGE .button.button-primary:active,
+#WABVAP-PAGE .button.button-primary:focus {
+  background-color: #f97f00;
+  border-color: #f97f00;
+}
+#WABVAP-PAGE .button.button-primary:focus {
+  box-shadow: 0 0 0 1px #fff,0 0 0 3px #f97f00;
+}
+
+#WABVAP-PAGE .table .wp-list-table {
+  margin: 26px 0;
+}
+
+#WABVAP-PAGE .settings > div {
+  margin: 26px 0;
+}

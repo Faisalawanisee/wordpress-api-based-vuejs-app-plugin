@@ -24,14 +24,12 @@ export default createStore({
           emails: data.emails,
         };
     },
-    // updateCartItem(state, updatedItem) {
-    //   state.cart = state.cart.map((cartItem) => {
-    //     if (cartItem.id == updatedItem.id) {
-    //       return updatedItem;
-    //     }
-
-    //     return cartItem;
-    //   });
-    // },
+    AddNewEmail(stete, email){
+      stete.Settings.emails.push(email);
+    },
+    RemoveNewEmail(stete, email){
+      const i = stete.Settings.emails.findIndex(function(item){return item == email;});
+      stete.Settings.emails.splice(i, 1);
+    },
   }
 });

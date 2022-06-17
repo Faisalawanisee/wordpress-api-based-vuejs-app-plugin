@@ -4,12 +4,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "watch": "vite build --watch",
     "preview": "vite preview --port 4173",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "apexcharts": "^3.35.3",
     "vue": "^3.2.36",
-    "vue-router": "^4.0.15"
+    "vue-router": "^4.0.15",
+    "vue3-apexcharts": "^1.4.1",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

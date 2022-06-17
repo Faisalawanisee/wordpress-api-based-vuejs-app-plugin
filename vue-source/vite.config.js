@@ -10,5 +10,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: "bundle.js",
+        assetFileNames: "[name][extname]",
+        inlineDynamicImports: true,
+      },
+    },
+  },
 })

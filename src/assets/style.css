@@ -114,7 +114,7 @@
   vertical-align: middle;
   padding: 7px 12px;
   margin: 0 10px 0 0;
-  width: 400px;
+  max-width: 400px;
   min-height: 35px;
   line-height: 1.3;
 }

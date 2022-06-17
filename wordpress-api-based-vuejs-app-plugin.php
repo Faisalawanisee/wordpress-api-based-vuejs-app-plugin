@@ -32,7 +32,7 @@ if (!defined('WABVAP_DEV_MODE')) define('WABVAP_DEV_MODE', "yes");
 if (!defined('WABVAP_DATA_URL')) define('WABVAP_DATA_URL', "https://miusage.com/v1/challenge/2/static/");
 
 
-// Including style.css
+// Include style.css
 add_action('admin_enqueue_scripts', 'WABVAP_setting_up_scripts');
 function WABVAP_setting_up_scripts() {
 

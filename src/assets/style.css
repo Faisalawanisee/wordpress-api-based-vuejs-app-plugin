@@ -12,6 +12,13 @@
 #WABVAP-PAGE .v-align-top {
   vertical-align: top !important;
 }
+#WABVAP-PAGE .responsive-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#WABVAP-PAGE .responsive-table table {
+  min-width: 500px;
+}
 #WABVAP-PAGE .sec-title {
   color: #444;
   font-size: 20px;
@@ -26,6 +33,9 @@
   border: 1px solid #dadada;
   margin: 10px 0 0 0;
   display: inline-block;
+  overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Override */

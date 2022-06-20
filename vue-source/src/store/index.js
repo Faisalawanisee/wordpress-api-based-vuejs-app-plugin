@@ -5,8 +5,8 @@ export default createStore({
     WabvapVue: {},
     Data: {},
     Settings: {
-      numrows: 5,
-      humandate: true,
+      numrows: 0,
+      humandate: false,
       emails: {},
     },
   },
@@ -24,6 +24,9 @@ export default createStore({
           emails: data.emails,
         };
     },
+    UpdateSingleSetting(state, data) {
+        state.Settings[data.name] = data.value
+    },
     AddNewEmail(stete, email){
       stete.Settings.emails.push(email);
     },
@@ -31,5 +34,10 @@ export default createStore({
       const i = stete.Settings.emails.findIndex(function(item){return item == email;});
       stete.Settings.emails.splice(i, 1);
     },
+  },
+  getters: {
+    Settings (state) {
+      return state.Settings;
+    }
   }
 });

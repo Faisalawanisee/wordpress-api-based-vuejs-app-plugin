@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="bg-white">
+    <header>
       <nav>
         <RouterLink to="/">Graph</RouterLink>
         <RouterLink to="/table">Table</RouterLink>

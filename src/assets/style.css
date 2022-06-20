@@ -1,26 +1,27 @@
-#WABVAP-PAGE header {
-  height: 58px;
+/* Global */
+#WABVAP-PAGE .mt-5 {
+  margin-top: 5px !important;
+}
+#WABVAP-PAGE .v-align-top {
+  vertical-align: top !important;
+}
+#WABVAP-PAGE .sec-title {
+  color: #444;
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 1px solid #e4e4e4;
+  padding: 10px 0 20px;
+  margin: 0;
+}
+#WABVAP-PAGE .card-box {
   background-color: #fff;
-  font-size: 14px;
-  margin: 0 -20px 20px;
-  padding: 0 20px;
-}
-#WABVAP-PAGE nav a {
-  border-bottom: 2px solid #fff;
-  box-shadow: none;
-  color: #666;
+  padding: 25px 20px;
+  border: 1px solid #dadada;
+  margin: 10px 0 0 0;
   display: inline-block;
-  margin-right: 30px;
-  padding: 20px 0 18px 0;
-  text-decoration: none;
-}
-#WABVAP-PAGE nav a.router-link-active {
-  border-bottom: 2px solid #ff982d;
-}
-#WABVAP-PAGE nav a:hover {
-  border-color: #999;
 }
 
+/* Override */
 #WABVAP-PAGE .button.button-primary {
   background-color: #ff982d;
   border-color: #ff982d;
@@ -39,120 +40,80 @@
   box-shadow: 0 0 0 1px #fff,0 0 0 3px #f97f00;
 }
 
-#WABVAP-PAGE .button.button-primary.mt-0 {
-  margin-top: 0;
-}
-
-#WABVAP-PAGE .alert-error {
-  font-size: 14px;
-  padding: 10px;
-  margin-bottom: 30px;
-  background: #fff;
-  border-left: 4px solid #dc3232;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-
-#WABVAP-PAGE .sec-title {
-  color: #444;
-  font-size: 20px;
-  font-weight: 700;
+#WABVAP-PAGE .form-table tr {
+  padding: 6px 0;
+  border-top: 1px solid #e4e4e4;
   border-bottom: 1px solid #e4e4e4;
-  padding-bottom: 20px;
 }
-
-#WABVAP-PAGE .vue-apexcharts > div {
-  background-color: #fff;
-  padding: 25px 20px;
-  border: 1px solid #dadada;
-  margin: 10px 0 0 0;
+#WABVAP-PAGE .form-table tr:first-child {
+  border-top: 0px;
 }
-
-#WABVAP-PAGE .table .wp-list-table,
-#WABVAP-PAGE .settings .fields-wrapper {
-  margin: 26px 0;
+#WABVAP-PAGE .form-table tr:last-child {
+  border-bottom: 0px;
 }
-
-#WABVAP-PAGE .settings .emails-list {
-  margin-bottom: 5px;
-}
-
-#WABVAP-PAGE .field-wrapper {
-  border-bottom: 1px solid #e4e4e4;
-  padding: 30px 0;
-  font-size: 14px;
-  line-height: 1.3;
-}
-#WABVAP-PAGE .field-wrapper.no-border {
-  border-color: transparent;
-}
-#WABVAP-PAGE .field-wrapper::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-#WABVAP-PAGE .field-wrapper .label {
-  float: left;
-  width: 205px;
-}
-#WABVAP-PAGE .field-wrapper  label {
+#WABVAP-PAGE .form-table label {
   padding-top: 8px;
   font-weight: 600;
+  color: #444;
 }
-#WABVAP-PAGE .field-wrapper .field {
-  margin: 0 0 0 205px;
-  max-width: 800px;
-  padding-left: 20px;
-}
-#WABVAP-PAGE .field-wrapper input:not([type="checkbox"]) {
-  appearance: none;
-  background-color: #fff;
+#WABVAP-PAGE .form-table input:not([type="checkbox"]) {
   border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: none;
   color: #333;
-  display: inline-block;
-  vertical-align: middle;
   padding: 7px 12px;
-  margin: 0 10px 0 0;
-  max-width: 400px;
   min-height: 35px;
   line-height: 1.3;
+  margin: 0;
 }
-#WABVAP-PAGE .field-wrapper input:not([type="checkbox"]):focus {
-  border: 1px solid #016aab;
-  box-shadow: 0 0 0 1px #016aab;
-  outline: none;
+#WABVAP-PAGE .form-table input:not([type="checkbox"]):focus {
+  border: 1px solid currentColor;
 }
-
-#WABVAP-PAGE .field-wrapper .field button {
+#WABVAP-PAGE .form-table .del-btn {
   background-color: #f5f5f5;
   border: 1px solid #ccc;
+  margin-left: 3px;
   color: #666;
   font-size: 13px;
   font-weight: 600;
   padding: 8px 12px;
-  min-height: 35px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
-  vertical-align: middle;
+  min-height: 35px;
 }
-#WABVAP-PAGE .field-wrapper .field button:hover {
+#WABVAP-PAGE .form-table .del-btn:hover {
   background-color: #eee;
   color: #444;
 }
+@media screen and (min-width: 783px) {
+  #WABVAP-PAGE .form-table th {
+    padding: 26px 10px 26px 0;
+    vertical-align: middle;
+  }
+  #WABVAP-PAGE .form-table td {
+    padding: 26px 10px;
+    vertical-align: middle;
+  }
+}
 
-@media screen and (max-width: 781px) {
-  #WABVAP-PAGE .vue-apexcharts {
-    overflow: scroll;
-  }
-  #WABVAP-PAGE .field-wrapper .label,
-  #WABVAP-PAGE .field-wrapper .field {
-    float: none;
-    width: 100%;
-    padding-left: 0;
-    margin-bottom: 10px;
-  }
-  #WABVAP-PAGE .field-wrapper .field {
-    margin: 0;
-  }
+/* Custom */
+#WABVAP-PAGE header {
+  background-color: #fff;
+  height: 58px;
+  font-size: 14px;
+  margin: 0 -20px 20px;
+  padding: 0 20px;
+}
+#WABVAP-PAGE nav a {
+  border-bottom: 2px solid #fff;
+  box-shadow: none;
+  color: #666;
+  display: inline-block;
+  margin-right: 30px;
+  padding: 20px 0 18px 0;
+  text-decoration: none;
+}
+#WABVAP-PAGE nav a.router-link-active {
+  border-bottom: 2px solid #ff982d;
+}
+#WABVAP-PAGE nav a:hover {
+  border-color: #999;
 }

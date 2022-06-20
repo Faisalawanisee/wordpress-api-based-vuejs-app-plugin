@@ -4,6 +4,7 @@ namespace WABVAP;
 
 use WP_REST_Server;
 use WP_REST_Request;
+use WP_Error;
 use WABVAP\Settings;
 
 class Endpoints
@@ -33,10 +34,10 @@ class Endpoints
 				'permission_callback' => array($this, 'permissions_check'),
 			),
 		));
-		register_rest_route($namespace, '/setting/(?P<name>[\d]+)', array(
+		register_rest_route($namespace, '/settings/(?P<name>[a-zA-Z0-9-]+)', array(
 			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array($this, 'get_item'),
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => array($this, 'get_single_setting'),
 				'permission_callback' => array($this, 'permissions_check'),
 			),
 		));
@@ -54,29 +55,75 @@ class Endpoints
 	{
 		return current_user_can('manage_options');
 	}
+	public function permissions_checka()
+	{
+		return current_user_can('manage_options_');
+	}
 
 	public function get_data(WP_REST_Request $request)
 	{
 		$is_refresh = $request->get_params('refresh');
 
-		$transient_key = WABVAP_OPTION_NAME . '_data';
-		$data = get_transient($transient_key);
-
-		if ((false === $data) || $is_refresh) {
-			$response = wp_remote_get(WABVAP_DATA_URL);
-
-			if ($response['response']['code'] == 200) {
-				$data = $response['body'];
-				set_transient($transient_key, $data, HOUR_IN_SECONDS);
-			}
-		}
-
-		return $data;
+		return WABVAP_get_data($is_refresh);
 	}
-
 
 	public function get_settings()
 	{
 		return (new Settings())->get();
+	}
+
+	public function get_single_setting(WP_REST_Request $request)
+	{
+		$name = $request->get_param('name');
+		$value = $request->get_param('value');
+
+		$settings = new Settings();
+		$settings_get = $settings->get();
+
+		if (in_array($name, ['numrows', 'humandate', 'emails'])) {
+			$old_value = $settings_get[$name];
+			$value = sanitize_text_field($value);
+			$settings_get[$name] = $value;
+
+			switch ($name) {
+				case 'numrows':
+					$value = (int)$value;
+					if ($value <= 5 && $value >= 1) {
+					} else {
+						return ['success' => false, 'message' => 'Number of Rows should between 1-5.'];
+					}
+					break;
+
+				case 'humandate':
+					if ($value == 'true' || $value == 'false') {
+					} else {
+						return ['success' => false, 'message' => 'Human Date Only Accept Boolean(true, false) value.'];
+					}
+					break;
+
+				case 'emails':
+					$value = (int)$value;
+					if ($value <= 5 && $value >= 1) {
+					} else {
+						return ['success' => false, 'message' => 'Number of Rows should between 1-5.'];
+					}
+					break;
+
+				default:
+					# code...
+					break;
+			}
+
+			if (
+				$settings->set($settings_get) == false &&
+				!($value === $old_value || maybe_serialize($value) === maybe_serialize($old_value))
+			) {
+				return ['success' => false, 'message' => 'Setting not save.'];
+			} else {
+				return ['success' => true, 'message' => 'Setting save.'];
+			}
+		}
+
+		return ['success' => false, 'message' => 'Please enter a valid setting name.'];
 	}
 }

@@ -1,15 +1,20 @@
 <template>
-  <div class="graph">
-    <h1 class="sec-title">Graph</h1>
+  <div class="graph-content">
+    <h2 class="sec-title">Graph</h2>
 
-    <button @click="refresh_data" class="button button-primary">Refresh Data</button>
-    <apexchart
-      v-if="options && options.series"
-      width="700"
-      type="bar"
-      :options="options"
-      :series="options.series"
-    ></apexchart>
+    <div>
+      <button @click="refresh_data" class="button button-primary">Refresh Data</button>
+    </div>
+
+    <div class="card-box">
+      <apexchart
+        v-if="options && options.series"
+        width="700"
+        type="bar"
+        :options="options"
+        :series="options.series"
+      />
+    </div>
   </div>
 </template>
 

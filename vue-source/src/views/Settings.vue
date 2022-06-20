@@ -1,6 +1,41 @@
 <template>
-  <div class="settings">
-    <h1 class="sec-title">This is an settings page</h1>
+  <div class="settings-content">
+    <h2 class="sec-title">This is an settings page</h2>
+
+    <table class="form-table" role="presentation">
+      <tbody>
+        <tr>
+          <th scope="row">
+            <label for="numrows">Number of Rows</label>
+          </th>
+          <td>
+            <input
+              type="number"
+              v-model="settings.numrows"
+              name="numrows"
+              id="numrows"
+              min="1"
+              max="5"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <label for="numrows">Number of Rows</label>
+          </th>
+          <td>
+            <input
+              type="number"
+              v-model="settings.numrows"
+              name="numrows"
+              id="numrows"
+              min="1"
+              max="5"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
     <div class="fields-wrapper">
       <div class="field-wrapper">
@@ -34,8 +69,12 @@
       </div>
 
       <div class="field-wrapper no-border">
-        <div class="alert-error" v-if="errormessage">
-          {{ errormessage }}
+        <!-- alert -->
+        <div v-if="errormessage" class="notice notice-error is-dismissible">
+          <p>{{ errormessage }}</p>
+          <button type="button" class="notice-dismiss">
+            <span class="screen-reader-text">Dismiss this notice.</span>
+          </button>
         </div>
 
         <div class="label">

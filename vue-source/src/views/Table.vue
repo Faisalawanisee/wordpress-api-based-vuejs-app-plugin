@@ -1,6 +1,6 @@
 <template>
-  <div class="table">
-    <h1 class="sec-title">{{ $store.state.Data?.table?.title }}</h1>
+  <div class="table-content">
+    <h2 class="sec-title">{{ $store.state.Data?.table?.title }}</h2>
 
     <table class="table wp-list-table widefat" v-if="table">
       <thead v-if="table.headers">

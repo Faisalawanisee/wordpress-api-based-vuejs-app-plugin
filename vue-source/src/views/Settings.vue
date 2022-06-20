@@ -38,14 +38,14 @@
             </div>
 
             <!-- email's list -->
-            <div class="mt-5" v-for="(email, i) in emails" :key="i">
+            <div class="mt-5 d-flex" v-for="(email, i) in emails" :key="i">
               <input
                 v-on:change="updateEmail(email)"
                 placeholder="Email"
                 :id="'email-' + i"
                 type="email"
               />
-              <button @click="deleteEmail(email)" class="del-btn">X</button>
+              <button @click="deleteEmail(email)" class="button my-0 del-btn">X</button>
             </div>
             <div>
               <button class="button button-primary mt-5" @click="AddEmail">+</button>

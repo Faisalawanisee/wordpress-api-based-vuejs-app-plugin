@@ -1,7 +1,10 @@
 <template>
   <div class="settings-content">
     <h2 class="sec-title">This is an settings page</h2>
-
+    <!-- alert -->
+    <div v-if="errormessage" class="notice notice-error">
+      <p>{{ errormessage }}</p>
+    </div>
     <table class="form-table" role="presentation">
       <tbody>
         <tr>
@@ -11,7 +14,7 @@
           <td>
             <input
               type="number"
-              v-model="settings.numrows"
+              v-model="numrows"
               name="numrows"
               id="numrows"
               min="1"
@@ -32,10 +35,7 @@
             <label for="email-0">Emails</label>
           </th>
           <td>
-            <!-- alert -->
-            <div v-if="errormessage" class="notice notice-error">
-              <p>{{ errormessage }}</p>
-            </div>
+            
 
             <!-- email's list -->
             <div class="mt-5 d-flex" v-for="(email, i) in emails" :key="i">

@@ -23,6 +23,10 @@ class Base
         // Deactivation hook.
         register_deactivation_hook(WABVAP_PLUGIN_FILE, [$this, 'deactivate']);
 
+        // Add Language Support
+        add_action('init', [$this, 'load_textdomain']);
+
+        // Load Plugin classes
         add_action('plugins_loaded', [$this, 'load_classes']);
     }
 
@@ -43,6 +47,11 @@ class Base
         // Delete plugin option & version field.
         delete_option($option_name);
         delete_option($option_name . '_version');
+    }
+
+    public function load_textdomain()
+    {
+        load_plugin_textdomain('wordpress-api-based-vuejs-app-plugin', false, WABVAP_PATH . '/languages');
     }
 
     public function load_classes()

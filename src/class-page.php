@@ -8,7 +8,7 @@ class Page
 
 	public function __construct()
 	{
-		if (current_user_can('manage_options')) {
+		if (is_admin()) {
 			$this->wp_hooks();
 		}
 	}
@@ -35,6 +35,11 @@ class Page
 
 	public function html()
 	{
+?>
+		<h1>
+			<?php _e("fay is here", 'wordpress-api-based-vuejs-app-plugin'); ?>
+		</h1>
+<?php
 		echo '<div class="wrap" id="WABVAP-PAGE"></div>';
 	}
 

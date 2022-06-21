@@ -1,7 +1,7 @@
 <template>
   <div v-if="settings" class="settings-content">
-    <h2 class="sec-title">Settings Page</h2>
-    <!-- alert -->
+    <h2 class="sec-title">{{i18n('page_title_settings')}}</h2>
+    
     <div v-if="errormessage" class="notice notice-error">
       <p>{{ errormessage }}</p>
     </div>
@@ -9,7 +9,7 @@
       <tbody>
         <tr>
           <th scope="row">
-            <label for="numrows">Number of Rows</label>
+            <label for="numrows">{{i18n('num_of_rows')}}</label>
           </th>
           <td>
             <input
@@ -24,7 +24,7 @@
         </tr>
         <tr>
           <th scope="row">
-            <label for="humandate">Human date</label>
+            <label for="humandate">{{i18n('human_date')}}</label>
           </th>
           <td>
             <input type="checkbox" name="humandate" id="humandate" v-model="humandate" />
@@ -32,7 +32,7 @@
         </tr>
         <tr>
           <th scope="row" class="v-align-top">
-            <label for="email-0">Emails</label>
+            <label for="email-0">{{i18n('emails')}}</label>
           </th>
           <td>
             <div v-if="emails" :class="'email-wrapper-'+trigger">
@@ -48,7 +48,7 @@
                   <button @click="deleteEmail(email)" class="button my-0 del-btn">X</button>
                 </div>
                 <div v-if="!email.valid">
-                  <small style="color:red">Please Add Valid Email Address.</small>
+                  <small style="color:red">{{i18n('add_valid_email_address')}}</small>
                 </div>
               </div>
               <div>
@@ -99,7 +99,7 @@ export default {
         if (typeof val === "boolean") {
           this.SaveSetting("humandate", val);
         } else {
-          this.errormessage = "Human Date Only Accept Boolean(true, false) value.";
+          this.errormessage = this.i18n('human_date_accept_boolean');
         }
       },
     },
@@ -109,7 +109,7 @@ export default {
       for (let email = 0; email < emails.length; email++) {
         output.push(
           {
-            id: this.uuidv4(),
+            id: this.uuid(),
             email: emails[email],
             valid: true
           }
@@ -142,7 +142,7 @@ export default {
       if (this.emails.length < 5) {
         this.emails.push(
           {
-            id: this.uuidv4(),
+            id: this.uuid(),
             email: "",
             valid: true
           },
@@ -175,11 +175,7 @@ export default {
       }
       this.trigger += 1;
     },
-    uuidv4(){
-      return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-      );
-    },
+    
     async SaveSetting(name, value) {
       const headers = { "X-WP-Nonce": window.wabvap_vue.nonce };
       var data = new FormData();
@@ -200,7 +196,7 @@ export default {
           this.errormessage = body.message;
         }
       } else {
-        this.errormessage = "Internal Server Error.";
+        this.errormessage = this.i18n('server_error');
       }
     },
   },

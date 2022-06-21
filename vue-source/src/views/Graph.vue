@@ -1,9 +1,9 @@
 <template>
   <div class="graph-content">
-    <h2 class="sec-title">Graph</h2>
+    <h2 class="sec-title">{{i18n('page_title_graph')}}</h2>
 
     <div>
-      <button @click="refresh_data" class="button button-primary">Refresh Data</button>
+      <button @click="refresh_data" class="button button-primary">{{i18n('refresh_data')}}</button>
     </div>
 
     <div class="card-box">

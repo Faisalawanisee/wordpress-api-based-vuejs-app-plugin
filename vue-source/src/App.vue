@@ -2,9 +2,9 @@
   <div>
     <header>
       <nav>
-        <RouterLink to="/">Graph</RouterLink>
-        <RouterLink to="/table">Table</RouterLink>
-        <RouterLink to="/settings">Settings</RouterLink>
+        <RouterLink to="/">{{i18n('page_title_graph')}}</RouterLink>
+        <RouterLink to="/table">{{i18n('page_title_table')}}</RouterLink>
+        <RouterLink to="/settings">{{i18n('page_title_settings')}}</RouterLink>
       </nav>
     </header>
     <main>
@@ -17,15 +17,11 @@
 import { RouterLink, RouterView } from "vue-router";
 export default {
   created() {
-    this.get_wp_info();
     this.get_data();
     this.get_settings();
   },
 
   methods: {
-    get_wp_info() {
-      this.$store.commit("UpdateWabvapVue", window.wabvap_vue);
-    },
 
     get_data() {
       const headers = { "X-WP-Nonce": window.wabvap_vue.nonce };
@@ -43,14 +39,3 @@ export default {
   },
 };
 </script>
-
-<style>
-@import "@/assets/base.css";
-
-/* #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-} */
-</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="table-content">
-    <h2 class="sec-title">{{ $store.state.Data?.table?.title }}</h2>
+    <h2 class="sec-title">{{i18n('page_title_table')}}</h2>
     <div class="responsive-table">
       <table
         class="wp-list-table widefat fixed striped table-view-list events"
@@ -27,7 +27,7 @@
       </table>
     </div>
     <div v-if="emails.length">
-      <h3>Emails List</h3>
+      <h3>{{i18n('emails_list')}}</h3>
       <ul>
         <li v-for="email in emails" :key="email">
           <a :href="'mailto:'+email">{{email}}</a>

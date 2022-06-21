@@ -35,16 +35,7 @@ class Page
 
 	public function html()
 	{
-?>
-		<h1>
-			<?php _e("fay is here", 'wordpress-api-based-vuejs-app-plugin'); ?>
-		</h1>
-<?php
 		echo '<div class="wrap" id="WABVAP-PAGE"></div>';
-	}
-
-	public function enqueue_styles()
-	{
 	}
 
 	public function enqueue_scripts()
@@ -65,18 +56,30 @@ class Page
 			WABVAP_DEV_MODE ? time() : WABVAP_VER,
 		);
 
-		// wp_enqueue_script('wp-mail-smtp-vue-script', WABVAP_URL . '/vue/js/wizard.min.js', ['wp-mail-smtp-vue-vendors'], WABVAP_VER, true);
+		$i18n_data = [
+			'page_title_settings' => __('Settings', 'wordpress-api-based-vuejs-app-plugin'),
+			'page_title_table' => __('Table', 'wordpress-api-based-vuejs-app-plugin'),
+			'page_title_graph' => __('Graph', 'wordpress-api-based-vuejs-app-plugin'),
+			'num_of_rows' => __('Number of Rows', 'wordpress-api-based-vuejs-app-plugin'),
+			'human_date' => __('Human date', 'wordpress-api-based-vuejs-app-plugin'),
+			'emails' => __('Emails', 'wordpress-api-based-vuejs-app-plugin'),
+			'add_valid_email_address' => __('Please Add Valid Email Address.', 'wordpress-api-based-vuejs-app-plugin'),
+			'human_date_accept_boolean' => __('Human Date Only Accept Boolean(true, false) value.', 'wordpress-api-based-vuejs-app-plugin'),
+			'server_error' => __('Internal Server Error.', 'wordpress-api-based-vuejs-app-plugin'),
+			'refresh_data' => __('Refresh Data', 'wordpress-api-based-vuejs-app-plugin'),
+			'emails_list' => __('Emails List', 'wordpress-api-based-vuejs-app-plugin'),
+		];
 
 		wp_localize_script(
 			'wabvap_script',
 			'wabvap_vue',
 			[
-				// 'ajax_url' => admin_url('admin-ajax.php'),
 				'nonce' => wp_create_nonce('wp_rest'),
 				'endpoints' => [
 					'data_url' => home_url('wp-json/wabvap/data'),
 					'setting_url' => home_url('wp-json/wabvap/settings'),
-				]
+				],
+				'i18n_data' => $i18n_data
 			]
 		);
 	}

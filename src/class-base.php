@@ -51,7 +51,7 @@ class Base
 
     public function load_textdomain()
     {
-        load_plugin_textdomain('wordpress-api-based-vuejs-app-plugin', false, WABVAP_PATH . '/languages');
+        load_plugin_textdomain('wordpress-api-based-vuejs-app-plugin', false, plugin_basename(WABVAP_PATH) . '/languages');
     }
 
     public function load_classes()

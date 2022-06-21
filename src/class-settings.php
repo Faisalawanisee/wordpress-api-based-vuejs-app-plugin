@@ -5,10 +5,6 @@ namespace WABVAP;
 class Settings
 {
 
-	public function __construct()
-	{
-	}
-
 	public static function default_values()
 	{
 		return [

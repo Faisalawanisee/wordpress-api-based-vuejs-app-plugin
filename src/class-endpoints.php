@@ -4,7 +4,6 @@ namespace WABVAP;
 
 use WP_REST_Server;
 use WP_REST_Request;
-use WP_Error;
 use WABVAP\Settings;
 
 class Endpoints
@@ -88,14 +87,14 @@ class Endpoints
 					$value = (int)$value;
 					if ($value <= 5 && $value >= 1) {
 					} else {
-						return ['success' => false, 'message' => 'Number of Rows should between 1-5.'];
+						return ['success' => false, 'message' => __('Number of Rows should between 1-5.', 'wordpress-api-based-vuejs-app-plugin')];
 					}
 					break;
 
 				case 'humandate':
 					if ($value == 'true' || $value == 'false') {
 					} else {
-						return ['success' => false, 'message' => 'Human Date Only Accept Boolean(true, false) value.'];
+						return ['success' => false, 'message' => __('Human Date Only Accept Boolean(true, false) value.', 'wordpress-api-based-vuejs-app-plugin')];
 					}
 					break;
 
@@ -123,12 +122,12 @@ class Endpoints
 				$settings->set($settings_get) == false &&
 				!($value === $old_value || maybe_serialize($value) === maybe_serialize($old_value))
 			) {
-				return ['success' => false, 'message' => 'Setting not save.'];
+				return ['success' => false, 'message' => __('Setting not save.', 'wordpress-api-based-vuejs-app-plugin')];
 			} else {
-				return ['success' => true, 'message' => 'Setting save.'];
+				return ['success' => true, 'message' => __('Setting Saved.', 'wordpress-api-based-vuejs-app-plugin')];
 			}
 		}
 
-		return ['success' => false, 'message' => 'Please enter a valid setting name.'];
+		return ['success' => false, 'message' => __('Please enter a valid setting name.', 'wordpress-api-based-vuejs-app-plugin')];
 	}
 }

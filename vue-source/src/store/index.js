@@ -2,7 +2,6 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    WabvapVue: {},
     Data: {},
     Settings: {
       numrows: 0,
@@ -11,9 +10,6 @@ export default createStore({
     },
   },
   mutations: {
-    UpdateWabvapVue(state, data) {
-        state.WabvapVue = data;
-    },
     UpdateData(state, data) {
         state.Data = data;
     },
@@ -26,13 +22,6 @@ export default createStore({
     },
     UpdateSingleSetting(state, data) {
         state.Settings[data.name] = data.value
-    },
-    AddNewEmail(stete, email){
-      stete.Settings.emails.push(email);
-    },
-    RemoveNewEmail(stete, email){
-      const i = stete.Settings.emails.findIndex(function(item){return item == email;});
-      stete.Settings.emails.splice(i, 1);
     },
   }
 });

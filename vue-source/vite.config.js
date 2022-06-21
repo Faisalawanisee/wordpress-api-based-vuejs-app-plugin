@@ -12,6 +12,7 @@ export default defineConfig({
     }
   },
   build: {
+    outDir: "../src/assets",
     rollupOptions: {
       output: {
         entryFileNames: "bundle.js",

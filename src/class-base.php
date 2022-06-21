@@ -2,7 +2,6 @@
 
 namespace WABVAP;
 
-use WABVAP\Auth;
 use WABVAP\Endpoints;
 use WABVAP\Settings;
 use WABVAP\Page;
@@ -48,7 +47,6 @@ class Base
 
     public function load_classes()
     {
-        new Auth();
         new Endpoints();
 
         if (is_admin()) {

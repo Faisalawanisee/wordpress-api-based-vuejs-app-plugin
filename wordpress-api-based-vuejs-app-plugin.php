@@ -31,22 +31,6 @@ if (!defined('WABVAP_DEV_MODE')) define('WABVAP_DEV_MODE', "yes");
 
 if (!defined('WABVAP_DATA_URL')) define('WABVAP_DATA_URL', "https://miusage.com/v1/challenge/2/static/");
 
-
-// Include style.css
-add_action('admin_enqueue_scripts', 'WABVAP_setting_up_scripts');
-function WABVAP_setting_up_scripts()
-{
-
-	$dir = plugin_dir_url(__FILE__);
-
-	wp_enqueue_style(
-		'main-style',
-		$dir . 'src/assets/style.css',
-		array(),
-		'1.0'
-	);
-}
-
 function WABVAP_get_data($force_refresh)
 {
 

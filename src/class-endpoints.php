@@ -83,8 +83,6 @@ class Endpoints
 		if (in_array($name, ['numrows', 'humandate', 'emails'])) {
 			$old_value = $settings_get[$name];
 			$value = sanitize_text_field($value);
-			$settings_get[$name] = $value;
-
 			switch ($name) {
 				case 'numrows':
 					$value = (int)$value;
@@ -102,17 +100,24 @@ class Endpoints
 					break;
 
 				case 'emails':
-					$value = (int)$value;
-					if ($value <= 5 && $value >= 1) {
-					} else {
-						return ['success' => false, 'message' => 'Number of Rows should between 1-5.'];
+					$emails = json_decode($value);
+					$output = [];
+					foreach ($emails as $email) {
+						$output[] = sanitize_email($email);
 					}
+
+					$value = ($output);
 					break;
 
 				default:
 					# code...
 					break;
 			}
+
+			// print_r($value);
+			// die();
+
+			$settings_get[$name] = $value;
 
 			if (
 				$settings->set($settings_get) == false &&

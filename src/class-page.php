@@ -8,7 +8,9 @@ class Page
 
 	public function __construct()
 	{
-		$this->wp_hooks();
+		if (current_user_can('manage_options')) {
+			$this->wp_hooks();
+		}
 	}
 
 	public function wp_hooks()
@@ -45,10 +47,17 @@ class Page
 
 		wp_enqueue_script(
 			'wabvap_script',
-			WABVAP_URL . '/vue-source/dist/bundle.js',
+			WABVAP_URL . '/src/assets/bundle.js',
 			array(),
 			WABVAP_DEV_MODE ? time() : WABVAP_VER,
 			true
+		);
+
+		wp_enqueue_style(
+			'main-style',
+			WABVAP_URL . '/src/assets/style.css',
+			array(),
+			WABVAP_DEV_MODE ? time() : WABVAP_VER,
 		);
 
 		// wp_enqueue_script('wp-mail-smtp-vue-script', WABVAP_URL . '/vue/js/wizard.min.js', ['wp-mail-smtp-vue-vendors'], WABVAP_VER, true);

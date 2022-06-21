@@ -1,6 +1,6 @@
 <template>
-  <div class="settings-content">
-    <h2 class="sec-title">This is an settings page</h2>
+  <div v-if="settings" class="settings-content">
+    <h2 class="sec-title">Settings Page</h2>
     <!-- alert -->
     <div v-if="errormessage" class="notice notice-error">
       <p>{{ errormessage }}</p>
@@ -35,33 +35,30 @@
             <label for="email-0">Emails</label>
           </th>
           <td>
-            
-
-            <!-- email's list -->
-            <div class="mt-5 d-flex" v-for="(email, i) in emails" :key="i">
-              <input
-                v-on:change="updateEmail(email)"
-                placeholder="Email"
-                :id="'email-' + i"
-                type="email"
-              />
-              <button @click="deleteEmail(email)" class="button my-0 del-btn">X</button>
-            </div>
-            <div>
-              <button class="button button-primary mt-5" @click="AddEmail">+</button>
+            <div v-if="emails" :class="'email-wrapper-'+trigger">
+              <div v-for="(email, i) in emails" :key="i">
+                <div class="mt-5 d-flex">
+                  <input
+                    v-on:keyup="updateEmail(email)"
+                    v-model="emails[i].email"
+                    placeholder="Email"
+                    :id="'email-' + i"
+                    type="email"
+                  />
+                  <button @click="deleteEmail(email)" class="button my-0 del-btn">X</button>
+                </div>
+                <div v-if="!email.valid">
+                  <small style="color:red">Please Add Valid Email Address.</small>
+                </div>
+              </div>
+              <div>
+                <button class="button button-primary mt-5" @click="addEmail">+</button>
+              </div>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-
-    <pre>
-      {{ $store.state.Settings }}
-    </pre>
-
-    <pre>
-      {{ emails }}
-    </pre>
   </div>
 </template>
 
@@ -70,12 +67,11 @@ export default {
   data() {
     return {
       errormessage: "",
+      trigger: 1,
+      emails_temp: []
     };
   },
   computed: {
-    aaaSettings() {
-      return this.$store.getters.Settings;
-    },
     settings() {
       return this.$store.state.Settings;
     },
@@ -107,18 +103,83 @@ export default {
         }
       },
     },
-    emails: {
-      get() {
-        const emails = JSON.parse(JSON.stringify(this.settings.emails));
-        return emails;
-      },
-      set(val) {
-        console.log(val);
-        console.log("val");
-      },
-    },
+    emails(){
+      const emails = JSON.parse(JSON.stringify(this.settings.emails));
+      let output = [];
+      for (let email = 0; email < emails.length; email++) {
+        output.push(
+          {
+            id: this.uuidv4(),
+            email: emails[email],
+            valid: true
+          }
+        );
+        
+      }
+      return output;
+    }
   },
   methods: {
+    validateEmail(email) {
+      var validRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,9}$/;
+      if (email.match(validRegex)) return true;
+    },
+    updateEmail(email_obj) {
+      this.trigger += 1;
+      if(this.validateEmail(email_obj.email)){
+        this.findEmail(email_obj).valid = true
+        this.readyEmails();
+        this.SaveSetting('emails', this.emails_temp);
+      } else {
+        this.findEmail(email_obj).valid = false
+      }
+    },
+    findEmail(email_obj){
+      return this.emails.find(email => email === email_obj);
+    },
+    addEmail() {
+      this.trigger += 1;
+      if (this.emails.length < 5) {
+        this.emails.push(
+          {
+            id: this.uuidv4(),
+            email: "",
+            valid: true
+          },
+        );
+      } else {
+        this.errormessage = "Only 5 Emails allowed";
+      }
+    },
+    deleteEmail(email_obj) {
+      console.log(email_obj);
+      const index = this.emails.findIndex(email => email === email_obj);
+      console.log(index);
+      if (index > -1) {
+        this.emails.splice(index, 1);
+        this.readyEmails();
+        this.SaveSetting('emails', this.emails_temp);
+        this.trigger += 1;
+      }
+      if (this.emails.length < 5) {
+        this.errormessage = "";
+      }
+    },
+    readyEmails(){
+      this.emails_temp = [];
+      for (let email = 0; email < this.emails.length; email++) {
+        const email_obj = this.emails[email];
+        if(email_obj.valid){
+          this.emails_temp.push(email_obj.email)
+        }
+      }
+      this.trigger += 1;
+    },
+    uuidv4(){
+      return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      );
+    },
     async SaveSetting(name, value) {
       const headers = { "X-WP-Nonce": window.wabvap_vue.nonce };
       var data = new FormData();
@@ -130,7 +191,6 @@ export default {
         body: data,
       });
       var body = await response.json();
-      console.log(body);
 
       if (response.status === 200) {
         if (body.success == true) {
@@ -138,33 +198,11 @@ export default {
           this.errormessage = "";
         } else {
           this.errormessage = body.message;
-          // console.log(body.);
         }
       } else {
         this.errormessage = "Internal Server Error.";
       }
     },
-    updateEmail: function (email) {
-      console.log(email);
-    },
-    AddEmail: function () {
-      console.log(this.emails);
-      console.log(this.emails.length);
-      console.log("this.emails.length");
-      if (this.emails.length < 5) {
-        this.emails.push("");
-        console.log(this.emails);
-        // this.$store.commit("AddNewEmail", "");
-      } else {
-        this.errormessage = "Only 5 Emails allowed";
-      }
-    },
-    // deleteEmail: function (email) {
-    //   this.$store.commit("RemoveNewEmail", email);
-    //   if (this.settings.emails.length < 5) {
-    //     this.errormessage = "";
-    //   }
-    // },
   },
 };
 </script>

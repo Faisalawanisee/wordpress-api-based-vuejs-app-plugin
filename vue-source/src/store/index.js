@@ -7,7 +7,7 @@ export default createStore({
     Settings: {
       numrows: 0,
       humandate: false,
-      emails: {},
+      emails: [],
     },
   },
   mutations: {
@@ -34,10 +34,5 @@ export default createStore({
       const i = stete.Settings.emails.findIndex(function(item){return item == email;});
       stete.Settings.emails.splice(i, 1);
     },
-  },
-  getters: {
-    Settings (state) {
-      return state.Settings;
-    }
   }
 });

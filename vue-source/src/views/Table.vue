@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     itemDate(date){
-      if(this.humandate){
+      if(this.humandate.toString() == 'true'){
         return new Date( date * 1000);
       } else {
         return date;
